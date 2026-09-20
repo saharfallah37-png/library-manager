@@ -1,0 +1,296 @@
+{% extends "library/base.html" %}
+{% load static %}
+
+{% block title %}صفحه‌ی اصلی | کتابخانه‌ی من{% endblock %}
+
+{% block extra_css %}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'library/css/hero.css' %}"
+    >
+
+    <style>
+        .flowpath-hero[lang="fa"],
+        .flowpath-hero[lang="fa"] * {
+            font-family: "Vazirmatn", Tahoma, sans-serif;
+            letter-spacing: normal;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-text {
+            direction: rtl;
+            text-align: center;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-title {
+            font-size: clamp(32px, 5vw, 64px);
+            font-weight: 600;
+            line-height: 1.65;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-title .title-line {
+            display: block;
+            color: white;
+            direction: rtl;
+            unicode-bidi: isolate;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-title .title-muted {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .flowpath-hero[lang="fa"] .hero-description {
+            max-width: 480px;
+            font-size: clamp(14px, 1.5vw, 18px);
+            font-weight: 400;
+            line-height: 2;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-logo {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .flowpath-hero[lang="fa"] .hero-button {
+            font-weight: 500;
+            line-height: 1.8;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block content %}
+    <section class="flowpath-hero" dir="rtl" lang="fa">
+
+        <video
+            class="hero-video"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-hidden="true"
+        >
+            <source
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260703_053131_1ec3dd1c-d627-44fb-ab20-6e1fce41b0d5.mp4"
+                type="video/mp4"
+            >
+        </video>
+
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+
+
+
+
+
+
+            <header class="relative z-30 w-full px-5 py-4 sm:px-6 lg:px-12">
+
+                <!-- منوی موبایل و تبلت -->
+                <div class="relative lg:hidden">
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="absolute right-0 top-2 text-xl font-bold text-white no-underline"
+                    >
+                        کتابخانه‌ی من
+                    </a>
+
+                    <details class="group">
+
+                        <summary
+                            class="mr-auto flex w-fit cursor-pointer list-none items-center gap-2 rounded-xl border border-solid border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white [&::-webkit-details-marker]:hidden"
+                        >
+                            <svg
+                                class="group-open:hidden"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+
+                            <svg
+                                class="hidden group-open:block"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                aria-hidden="true"
+                            >
+                                <path d="m6 6 12 12M18 6 6 18"></path>
+                            </svg>
+
+                            منو
+                        </summary>
+
+                        <nav
+                            aria-label="منوی موبایل صفحهٔ اصلی"
+                            class="mt-5 grid gap-2 rounded-2xl border border-solid border-white/20 bg-[#2c221c]/95 p-4 shadow-xl backdrop-blur-xl"
+                        >
+                            <a
+                                href="{% url 'book_list' %}"
+                                class="rounded-xl px-4 py-3 text-sm text-white no-underline hover:bg-white/10"
+                            >
+                                کتاب‌ها
+                            </a>
+
+                            <a
+                                href="{% url 'member_list' %}"
+                                class="rounded-xl px-4 py-3 text-sm text-white no-underline hover:bg-white/10"
+                            >
+                                اعضا
+                            </a>
+
+                            <a
+                                href="{% url 'borrow_book' %}"
+                                class="rounded-xl px-4 py-3 text-sm text-white no-underline hover:bg-white/10"
+                            >
+                                امانت کتاب
+                            </a>
+
+                            <a
+                                href="{% url 'return_book' %}"
+                                class="rounded-xl px-4 py-3 text-sm text-white no-underline hover:bg-white/10"
+                            >
+                                بازگشت کتاب
+                            </a>
+
+                            <a
+                                href="{% url 'statistics' %}"
+                                class="rounded-xl px-4 py-3 text-sm text-white no-underline hover:bg-white/10"
+                            >
+                                آمار کتابخانه
+                            </a>
+
+                            <a
+                                href="{% url 'add_book' %}"
+                                class="mt-2 rounded-xl bg-[#e8bd55] px-4 py-3 text-center text-sm font-bold text-[#2c221c] no-underline hover:bg-[#f0ca70]"
+                            >
+                                افزودن کتاب
+                            </a>
+                        </nav>
+
+                    </details>
+                </div>
+
+                <!-- منوی دسکتاپ -->
+                <div class="hidden items-center justify-between gap-6 lg:flex">
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="shrink-0 text-2xl font-bold text-white no-underline"
+                    >
+                        کتابخانه‌ی من
+                    </a>
+
+                    <nav
+                        aria-label="منوی اصلی صفحهٔ اصلی"
+                        class="flex items-center gap-1 xl:gap-3"
+                    >
+                        <a
+                            href="{% url 'book_list' %}"
+                            class="rounded-xl px-3 py-2 text-sm font-medium text-white no-underline hover:bg-white/10"
+                        >
+                            کتاب‌ها
+                        </a>
+
+                        <a
+                            href="{% url 'member_list' %}"
+                            class="rounded-xl px-3 py-2 text-sm font-medium text-white no-underline hover:bg-white/10"
+                        >
+                            اعضا
+                        </a>
+
+                        <a
+                            href="{% url 'borrow_book' %}"
+                            class="rounded-xl px-3 py-2 text-sm font-medium text-white no-underline hover:bg-white/10"
+                        >
+                            امانت کتاب
+                        </a>
+
+                        <a
+                            href="{% url 'return_book' %}"
+                            class="rounded-xl px-3 py-2 text-sm font-medium text-white no-underline hover:bg-white/10"
+                        >
+                            بازگشت کتاب
+                        </a>
+
+                        <a
+                            href="{% url 'statistics' %}"
+                            class="rounded-xl px-3 py-2 text-sm font-medium text-white no-underline hover:bg-white/10"
+                        >
+                            آمار کتابخانه
+                        </a>
+
+                        <a
+                            href="{% url 'add_book' %}"
+                            class="rounded-full border border-solid border-white/30 bg-white/10 px-5 py-2 text-sm font-medium text-white no-underline backdrop-blur-md hover:bg-white/20"
+                        >
+                            افزودن کتاب
+                        </a>
+                    </nav>
+
+                </div>
+
+            </header>
+
+
+
+
+
+
+
+        <div class="hero-content">
+            <div class="hero-text">
+
+                <h1 class="hero-title" dir="rtl">
+                    <span class="title-line">هر کتاب،</span>
+                    <span class="title-line">دری به سوی</span>
+                    <span class="title-line title-muted">دنیایی تازه.</span>
+                </h1>
+
+                <p class="hero-description">
+                    کتاب‌ها را جست‌وجو کنید، امانت بگیرید و
+                    سابقه‌ی مطالعه‌تان را دنبال کنید؛
+                    همه در یک کتابخانه.
+                </p>
+
+                <div class="hero-actions">
+                    <a
+                        href="{% url 'book_list' %}"
+                        class="hero-button hero-button-primary"
+                    >
+                        مشاهده‌ی کتاب‌ها
+                    </a>
+
+                    <a
+                        href="{% url 'borrow_book' %}"
+                        class="hero-button hero-button-secondary liquid-glass"
+                    >
+                        امانت گرفتن کتاب
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    
+{% endblock %}

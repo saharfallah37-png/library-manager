@@ -1,0 +1,17 @@
+{
+  "name": "library_manager",
+  "version": "1.0.0",
+  "description": "این پروژه یک برنامه‌ی آموزشی تحت وب برای مدیریت کتابخانه است.\r اطلاعات در لیست‌ها و دیکشنری‌های پایتون نگهداری می‌شوند.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
