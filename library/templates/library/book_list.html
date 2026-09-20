@@ -1,0 +1,225 @@
+{% extends "library/base.html" %}
+
+{% block title %}فهرست کتاب‌ها | کتابخانه‌ی من{% endblock %}
+
+{% block main_class %}
+mx-auto my-6 w-[calc(100%-2rem)] max-w-[1200px] rounded-[24px] border border-solid border-[#e6dece] bg-[#fffdf8] p-5 text-[#2c221c] sm:my-10 sm:p-8 lg:p-12
+{% endblock %}
+
+{% block content %}
+
+<section aria-labelledby="books-title">
+
+    <!-- عنوان صفحه و دکمه افزودن کتاب -->
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+
+        <div>
+            <p class="m-0 text-sm font-medium text-[#414b35]">
+                کتابخانه‌ی من
+            </p>
+
+            <h1
+                id="books-title"
+                class="mb-0 mt-3 text-3xl font-bold leading-normal sm:text-4xl"
+            >
+                کتاب بعدی‌ات را پیدا کن
+            </h1>
+
+            <p class="mb-0 mt-3 text-sm leading-8 text-[#75695d] sm:text-base">
+                میان کتاب‌ها بگرد و مطالعه‌ی تازه‌ای را شروع کن.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'add_book' %}"
+            class="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-2xl bg-[#e8bd55] px-5 py-3 text-sm font-bold text-[#2c221c] no-underline transition-colors hover:bg-[#f0ca70] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#414b35] sm:self-auto"
+        >
+            <span aria-hidden="true">＋</span>
+            افزودن کتاب
+        </a>
+
+    </div>
+
+    <!-- فرم جست‌وجو -->
+    <form
+        method="get"
+        action="{% url 'book_list' %}"
+        class="mt-8 rounded-[20px] border border-solid border-[#e6dece] bg-[#f3efe4] p-5 sm:p-6"
+    >
+        <label for="search" class="mb-3 block text-sm font-bold">
+            جست‌وجوی عنوان کتاب یا نویسنده
+        </label>
+
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+
+            <input
+                type="search"
+                id="search"
+                name="q"
+                value="{{ query }}"
+                placeholder="مثلاً Python یا نام نویسنده"
+                class="min-w-0 flex-1 rounded-xl border border-solid border-[#d4c7b3] bg-white px-4 py-3 font-[inherit] text-base text-[#2c221c] placeholder:text-[#75695d] focus:border-[#414b35] focus:outline-2 focus:outline-offset-2 focus:outline-[#414b35]"
+            >
+
+            <button
+                type="submit"
+                class="cursor-pointer rounded-xl border-0 bg-[#414b35] px-6 py-3 font-[inherit] text-sm font-bold text-white transition-colors hover:bg-[#536044] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#414b35]"
+            >
+                جست‌وجو
+            </button>
+
+            <a
+                href="{% url 'book_list' %}"
+                class="px-2 py-2 text-center text-sm font-medium text-[#414b35] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#414b35]"
+            >
+                نمایش همه
+            </a>
+
+        </div>
+    </form>
+
+    <!-- تعداد نتایج -->
+    <div class="mb-5 mt-7 flex flex-wrap items-center justify-between gap-3">
+
+        <p class="m-0 text-sm leading-7 text-[#75695d]">
+            {% if query %}
+                نتیجه‌ی جست‌وجو برای «<bdi>{{ query }}</bdi>»
+            {% else %}
+                همه‌ی کتاب‌ها
+            {% endif %}
+        </p>
+
+        <span class="rounded-full bg-[#eee8da] px-4 py-2 text-sm">
+            {{ books|length }} کتاب
+        </span>
+
+    </div>
+
+    <!-- کارت‌های کتاب -->
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+        {% for book in books %}
+
+            <article
+                class="flex min-w-0 flex-col rounded-[20px] border border-solid border-[#e6dece] bg-white p-5 transition-shadow hover:shadow-lg"
+            >
+
+                <div class="flex items-center justify-between gap-3">
+
+                    <span class="text-xs text-[#75695d]">
+                        کتاب شماره {{ book.id }}
+                    </span>
+
+                    {% if book.available %}
+                        <span class="rounded-full bg-[#edf3e6] px-3 py-1.5 text-xs font-medium text-[#354528]">
+                            آماده‌ی امانت
+                        </span>
+                    {% else %}
+                        <span class="rounded-full bg-[#fff0d3] px-3 py-1.5 text-xs font-medium text-[#805919]">
+                            در امانت
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                <div
+                    aria-hidden="true"
+                    class="my-5 grid h-32 place-items-center rounded-2xl bg-[#f3efe4] text-[#414b35]"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="52"
+                        height="52"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M12 7v14"></path>
+                        <path d="M3 3h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6v17h-6a3 3 0 0 0-3 1 3 3 0 0 0-3-1H3z"></path>
+                    </svg>
+                </div>
+
+                <h2 class="m-0 break-words text-xl font-bold leading-8">
+                    <bdi>{{ book.title }}</bdi>
+                </h2>
+
+                <p class="mb-6 mt-2 break-words text-sm leading-7 text-[#75695d]">
+                    <bdi>{{ book.author }}</bdi>
+                </p>
+
+                <div class="mt-auto flex items-center justify-between gap-3 border-x-0 border-b-0 border-t border-solid border-[#e6dece] pt-4">
+
+                    <span class="text-sm text-[#75695d]">
+                        سال {{ book.year }}
+                    </span>
+
+                    {% if book.available %}
+                        <a
+                            href="{% url 'borrow_book' %}?book_id={{ book.id }}"
+                            class="rounded-lg px-2 py-2 text-sm font-bold text-[#414b35] no-underline transition-colors hover:bg-[#edf3e6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#414b35]"
+                        >
+                            امانت این کتاب
+                            <span aria-hidden="true">←</span>
+                        </a>
+                    {% else %}
+                        <span class="text-sm text-[#75695d]">
+                            فعلاً موجود نیست
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="col-span-full rounded-[20px] border border-dashed border-[#d4c7b3] bg-[#f7f4ed] px-6 py-12 text-center">
+
+                {% if query %}
+
+                    <h2 class="m-0 text-xl font-bold">
+                        کتابی با این مشخصات پیدا نشد
+                    </h2>
+
+                    <p class="mb-0 mt-3 text-sm leading-8 text-[#75695d]">
+                        بخشی از عنوان کتاب یا نام نویسنده را امتحان کن.
+                    </p>
+
+                    <a
+                        href="{% url 'book_list' %}"
+                        class="mt-5 inline-block rounded-xl bg-[#414b35] px-5 py-3 text-sm font-bold text-white no-underline hover:bg-[#536044]"
+                    >
+                        نمایش همه‌ی کتاب‌ها
+                    </a>
+
+                {% else %}
+
+                    <h2 class="m-0 text-xl font-bold">
+                        هنوز کتابی ثبت نشده است
+                    </h2>
+
+                    <p class="mb-0 mt-3 text-sm leading-8 text-[#75695d]">
+                        اولین کتاب را به کتابخانه اضافه کن.
+                    </p>
+
+                    <a
+                        href="{% url 'add_book' %}"
+                        class="mt-5 inline-block rounded-xl bg-[#e8bd55] px-5 py-3 text-sm font-bold text-[#2c221c] no-underline hover:bg-[#f0ca70]"
+                    >
+                        افزودن اولین کتاب
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

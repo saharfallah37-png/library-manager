@@ -1,0 +1,146 @@
+{% extends "library/base.html" %}
+
+{% block title %}آمار کتابخانه | کتابخانه‌ی من{% endblock %}
+
+{% block main_class %}
+mx-auto my-6 w-[calc(100%-2rem)] max-w-[1200px] rounded-[24px] border border-solid border-[#e6dece] bg-[#fffdf8] p-5 text-[#2c221c] sm:my-10 sm:p-8 lg:p-12
+{% endblock %}
+
+{% block content %}
+
+<section aria-labelledby="statistics-title">
+
+    <div class="mb-8">
+        <p class="m-0 text-sm font-medium text-[#414b35]">
+            کتابخانه در یک نگاه
+        </p>
+
+        <h1
+            id="statistics-title"
+            class="mb-0 mt-3 text-3xl font-bold leading-normal sm:text-4xl"
+        >
+            آمار کتابخانه
+        </h1>
+
+        <p class="mb-0 mt-3 text-sm leading-8 text-[#75695d]">
+            وضعیت کتاب‌ها، اعضا و میزان امانت گرفتن را اینجا ببین.
+        </p>
+    </div>
+
+    <!-- آمار اصلی -->
+    <dl class="m-0 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div class="rounded-2xl border border-solid border-[#e6dece] bg-white p-5">
+            <dt class="text-sm text-[#75695d]">
+                کل کتاب‌ها
+            </dt>
+
+            <dd class="mx-0 mb-0 mt-4 text-4xl font-bold">
+                {{ total_books }}
+            </dd>
+        </div>
+
+        <div class="rounded-2xl border border-solid border-[#e6dece] bg-white p-5">
+            <dt class="text-sm text-[#75695d]">
+                اعضای کتابخانه
+            </dt>
+
+            <dd class="mx-0 mb-0 mt-4 text-4xl font-bold">
+                {{ total_members }}
+            </dd>
+        </div>
+
+        <div class="rounded-2xl border border-solid border-[#cbd9bd] bg-[#edf3e6] p-5">
+            <dt class="text-sm text-[#354528]">
+                آماده‌ی امانت
+            </dt>
+
+            <dd class="mx-0 mb-0 mt-4 text-4xl font-bold text-[#354528]">
+                {{ available_books }}
+            </dd>
+        </div>
+
+        <div class="rounded-2xl border border-solid border-[#ead7ad] bg-[#fff5df] p-5">
+            <dt class="text-sm text-[#805919]">
+                در امانت
+            </dt>
+
+            <dd class="mx-0 mb-0 mt-4 text-4xl font-bold text-[#805919]">
+                {{ borrowed_books }}
+            </dd>
+        </div>
+
+    </dl>
+
+    <!-- مجموع دفعات امانت -->
+    <section
+        aria-labelledby="borrows-title"
+        class="mt-6 rounded-[20px] bg-[#414b35] p-6 text-white sm:p-8"
+    >
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+            <div>
+                <h2 id="borrows-title" class="m-0 text-xl font-bold">
+                    مجموع دفعات امانت کتاب‌ها
+                </h2>
+
+                <p class="mb-0 mt-3 text-sm leading-8 text-white/80">
+                    هر بار امانت گرفتن یک کتاب، یک مرتبه به این شمارنده اضافه می‌کند.
+                </p>
+            </div>
+
+            <p class="m-0 shrink-0 text-5xl font-bold text-[#f5d889]">
+                {{ total_borrows }}
+                <span class="text-base font-medium">بار</span>
+            </p>
+
+        </div>
+    </section>
+
+    <!-- کتاب‌های دارای بیشترین امانت -->
+    <section aria-labelledby="popular-title" class="mt-10">
+
+        <h2 id="popular-title" class="m-0 text-xl font-bold">
+            پرامانت‌ترین کتاب‌ها
+        </h2>
+
+        <p class="mb-5 mt-2 text-sm leading-8 text-[#75695d]">
+            کتاب‌هایی که بیشترین تعداد امانت را در میان کتاب‌های فعلی دارند.
+        </p>
+
+        <div class="grid gap-4 md:grid-cols-2">
+
+            {% for book in most_borrowed_books %}
+
+                <article class="min-w-0 rounded-2xl border border-solid border-[#e6dece] bg-white p-5">
+
+                    <span class="inline-block rounded-full bg-[#fff0d3] px-3 py-1.5 text-xs font-medium text-[#805919]">
+                        {{ highest_count }} بار امانت
+                    </span>
+
+                    <h3 class="mb-0 mt-4 break-words text-xl font-bold leading-8">
+                        <bdi>{{ book.title }}</bdi>
+                    </h3>
+
+                    <p class="mb-0 mt-2 break-words text-sm leading-7 text-[#75695d]">
+                        <bdi>{{ book.author }}</bdi>
+                    </p>
+
+                </article>
+
+            {% empty %}
+
+                <div class="col-span-full rounded-2xl border border-dashed border-[#d4c7b3] bg-[#f7f4ed] p-6">
+                    <p class="m-0 text-sm leading-8 text-[#75695d]">
+                        هنوز امانتی در شمارندهٔ کتاب‌ها ثبت نشده است.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </section>
+
+</section>
+
+{% endblock %}

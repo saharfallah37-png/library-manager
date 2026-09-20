@@ -1,0 +1,169 @@
+{% extends "library/base.html" %}
+
+{% block title %}سابقهٔ امانت | {{ member.name }}{% endblock %}
+
+{% block main_class %}
+mx-auto my-6 w-[calc(100%-2rem)] max-w-[1000px] rounded-[24px] border border-solid border-[#e6dece] bg-[#fffdf8] p-5 text-[#2c221c] sm:my-10 sm:p-8 lg:p-10
+{% endblock %}
+
+{% block content %}
+
+<section aria-labelledby="history-title">
+
+    <a
+        href="{% url 'member_list' %}"
+        class="inline-flex items-center gap-2 rounded-lg text-sm font-medium text-[#414b35] no-underline hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#414b35]"
+    >
+        <span aria-hidden="true">→</span>
+        بازگشت به اعضا
+    </a>
+
+    <div class="mb-8 mt-6">
+        <p class="m-0 text-sm font-medium text-[#75695d]">
+            مسیر مطالعهٔ عضو
+        </p>
+
+        <h1
+            id="history-title"
+            class="mb-0 mt-3 text-3xl font-bold leading-normal sm:text-4xl"
+        >
+            سابقهٔ امانت
+        </h1>
+
+        <p class="mb-0 mt-3 text-base leading-8 text-[#414b35]">
+            <bdi>{{ member.name }}</bdi>
+            <span class="text-sm text-[#75695d]">
+                — شماره عضویت {{ member.id }}
+            </span>
+        </p>
+    </div>
+
+    <!-- خلاصهٔ وضعیت عضو -->
+    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+        <div class="rounded-2xl border border-solid border-[#ead7ad] bg-[#fff5df] p-5">
+            <p class="m-0 text-sm text-[#805919]">
+                امانت‌های فعال
+            </p>
+
+            <p class="mb-0 mt-3 text-3xl font-bold text-[#805919]">
+                {{ active_borrowings|length }}
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-solid border-[#cbd9bd] bg-[#edf3e6] p-5">
+            <p class="m-0 text-sm text-[#354528]">
+                امانت‌های بازگردانده‌شده
+            </p>
+
+            <p class="mb-0 mt-3 text-3xl font-bold text-[#354528]">
+                {{ returned_borrowings|length }}
+            </p>
+        </div>
+
+    </div>
+
+    <!-- کتاب‌هایی که هنوز نزد عضو هستند -->
+    <section aria-labelledby="active-title">
+
+        <h2 id="active-title" class="mb-4 mt-0 text-xl font-bold">
+            کتاب‌های در امانت
+        </h2>
+
+        <div class="grid gap-4">
+
+            {% for borrowing in active_borrowings %}
+
+                <article class="rounded-2xl border border-solid border-[#e6dece] bg-white p-5">
+
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+
+                        <h3 class="m-0 min-w-0 break-words text-lg font-bold leading-8">
+                            <bdi>{{ borrowing.book_title }}</bdi>
+                        </h3>
+
+                        <span class="shrink-0 self-start rounded-full bg-[#fff0d3] px-3 py-1.5 text-xs font-medium text-[#805919]">
+                            در امانت
+                        </span>
+
+                    </div>
+
+                    <p class="mb-0 mt-4 text-sm leading-7 text-[#75695d]">
+                        تاریخ امانت:
+                        <bdi dir="ltr">{{ borrowing.borrowed_at }}</bdi>
+                    </p>
+
+                </article>
+
+            {% empty %}
+
+                <div class="rounded-2xl border border-dashed border-[#d4c7b3] bg-[#f7f4ed] p-6">
+                    <p class="m-0 text-sm leading-8 text-[#75695d]">
+                        این عضو در حال حاضر کتابی در امانت ندارد.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <!-- امانت‌های پایان‌یافته -->
+    <section aria-labelledby="returned-title" class="mt-10">
+
+        <h2 id="returned-title" class="mb-4 mt-0 text-xl font-bold">
+            کتاب‌های بازگردانده‌شده
+        </h2>
+
+        <div class="grid gap-4">
+
+            {% for borrowing in returned_borrowings %}
+
+                <article class="rounded-2xl border border-solid border-[#e6dece] bg-white p-5">
+
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+
+                        <h3 class="m-0 min-w-0 break-words text-lg font-bold leading-8">
+                            <bdi>{{ borrowing.book_title }}</bdi>
+                        </h3>
+
+                        <span class="shrink-0 self-start rounded-full bg-[#edf3e6] px-3 py-1.5 text-xs font-medium text-[#354528]">
+                            بازگردانده‌شده
+                        </span>
+
+                    </div>
+
+                    <div class="mt-4 grid gap-2 text-sm leading-7 text-[#75695d] sm:grid-cols-2">
+
+                        <p class="m-0">
+                            تاریخ امانت:
+                            <bdi dir="ltr">{{ borrowing.borrowed_at }}</bdi>
+                        </p>
+
+                        <p class="m-0">
+                            تاریخ بازگشت:
+                            <bdi dir="ltr">{{ borrowing.returned_at }}</bdi>
+                        </p>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="rounded-2xl border border-dashed border-[#d4c7b3] bg-[#f7f4ed] p-6">
+                    <p class="m-0 text-sm leading-8 text-[#75695d]">
+                        هنوز امانت بازگردانده‌شده‌ای برای این عضو ثبت نشده است.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

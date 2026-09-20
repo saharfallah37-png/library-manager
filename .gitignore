@@ -1,0 +1,19 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Node.js
+node_modules/
+
+# اطلاعات محرمانه و تنظیمات محلی
+.env
+.env.*
+!.env.example
+.vscode/
+
+# پایگاه داده و گزارش‌های محلی
+db.sqlite3
+db.sqlite3-journal
+*.log
