@@ -129,3 +129,7 @@ MAILERS = {
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://localhost:8000",
+]
+
